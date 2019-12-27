@@ -1,13 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
-import { PlaceOrderService } from '../place-order/place-order.service';
-import { DominoOrderCreator } from './domino-order.creator';
+import { DominoPlaceOrderService } from './domino-place-order.service';
+import { DominoOrder } from './interface/domino.order';
 
 @Controller('domino-place-order')
 export class DominoPlaceOrderController {
-  constructor(private readonly placeOrderService: PlaceOrderService) {}
+  constructor(
+    private readonly dominoPlaceOrderService: DominoPlaceOrderService,
+  ) {}
 
   @Get()
-  placeOrder(): Promise<boolean> {
-    return this.placeOrderService.placeOrder(new DominoOrderCreator());
+  placeOrder(): Promise<DominoOrder> {
+    return this.dominoPlaceOrderService.placeOrder();
   }
 }
